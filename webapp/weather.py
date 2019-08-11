@@ -1,9 +1,10 @@
+from flask import current_app # загружаем возможность обращеня к текущему flask приложению
 import requests
 
-def wether_by_cyty(city_name):
-    wether_url = 'http://api.worldweatheronline.com/premium/v1/weather.ashx'
+def wether_by_city(city_name):
+    wether_url = current_app.config['WEATHER_URL']
     para = {
-        'key': '9d3bf4bc06864414aa4122545191008',
+        'key': current_app.config['WEATHER_API_KEY'],
         'q': city_name,
         'format': 'json',
         'num_of_day': 1,
@@ -26,4 +27,4 @@ def wether_by_cyty(city_name):
     return False
 
 if __name__ == '__main__':
-    print(wether_by_cyty('Odessa,Ukraine'))
+    print(wether_by_city('Odessa,Ukraine'))
