@@ -42,7 +42,7 @@ def create_app():
         if form.validate_on_submit(): # валидируем данные
             user = User.query.filter(User.username == form.username.data).first() # сравниваем пользователей по имени
             if user and user.check_password(form.password.data): # если пользователь существует и проверка пароля прошла
-                login_user(user) # логиним пользователя  запоминаем
+                login_user(user, remember=form.remember_me.data) # логиним пользователя  запоминаем, remember - данные чекбокса с "запомнить меня"
                 flash('Вы успешно вошли на сайт')
                 return redirect(url_for('index')) # редиректим на главную
 
