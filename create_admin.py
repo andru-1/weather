@@ -2,7 +2,8 @@ from getpass import getpass # запрашивает инпут в команд�
 import sys
 
 from webapp import create_app # наше фласк приложение
-from webapp.model import db, User # наши модели
+from webapp.db import db
+from webapp.news.models import User
 
 app = create_app()
 

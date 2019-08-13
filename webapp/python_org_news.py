@@ -3,7 +3,8 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup # html разборщик
 
-from webapp.model import db, News # подключение бд
+from webapp.db import db, News # подключение бд
+from webapp.news.models import News
 
 def get_html(url):
     try:
