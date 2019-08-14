@@ -1,12 +1,12 @@
-from flask import Blueprint
-from flask_login import current_user, login_required
+from flask import Blueprint, render_template
+#from flask_login import current_user, login_required
+from webapp.user.decorators import admin_required # вызываем наш декоратор
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 
 @blueprint.route('/')
-@login_required
-def admin_index():
-    if current_user.is_admin:
-        return 'Привет админ'
-    else:
-        return 'Ты не админ'
+@admin_required
+def admin_index(): # если проверка admin_required прошла, то он точно админ
+    #return 'Привет админ'
+    title = 'Админпанель'
+    return render_template('admin/index.html', page_title=title)
