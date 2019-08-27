@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, redirect, url_for
 from flask_login import LoginManager, current_user, login_required # менеджер для всех логинов
+from flask_migrate import Migrate # миграции
 
 from webapp.db import db
 from webapp.user.models import User
@@ -12,6 +13,7 @@ def create_app():
     app = Flask(__name__) # фласк приложение, __name__ - имя текущего файла
     app.config.from_pyfile('config.py') # загрузка конфигураций
     db.init_app(app) # инициализируем базу данных
+    migrate = Migrate(app, db) # работа с миграциями, обьект класса Migrate передавая ему app и db
 
     login_meneger = LoginManager()
     login_meneger.init_app(app)
