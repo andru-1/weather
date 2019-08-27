@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
+    {% with messeges = get_flashed_messages() %}
+        {% if messeges %}
+            {% for messege in messeges %}
+            <div class="alert alert-danger" role="alert">
+                {{ messege }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="row">
         <div class="col-4">
-            {% with messeges = get_flashed_messages() %}
-                {% if messeges %}
-                    <div class="alert alert-warning" role="alert">
-                        {% for messege in messeges %}
-                            {{ messege }}<br />
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
             <form action="{{ url_for('user.process_reg') }}" method="POST">
                 {{ form.hidden_tag() }}
                 <div class="form-group">

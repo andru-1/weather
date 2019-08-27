@@ -53,5 +53,11 @@ def process_reg():
         db.session.commit()
         flash('Вы успешно заегистрировались!')
         return redirect(url_for('user.login'))
-    flash('Пожалуйста, исправьте ошибки в форме')
-    return redirect(url_for('user.register'))
+    else: # вывод ошибок
+        for field, errors in form.errors.items(): # field - название поля, errors - список ошибок
+            for error in errors:
+                flash('Ошибка в поле "{}": - {}'.format(
+                    getattr(form, field).label.text,
+                    error
+                ))
+        return redirect(url_for('user.register'))
