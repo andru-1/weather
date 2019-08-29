@@ -1,14 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    {% with messeges = get_flashed_messages() %}
-        {% if messeges %}
-            {% for messege in messeges %}
-            <div class="alert alert-danger" role="alert">
-                {{ messege }}
-            </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    {% include('messages.html') %}
     <div class="row">
         <div class="col-4">
             <form action="{{ url_for('user.process_reg') }}" method="POST">

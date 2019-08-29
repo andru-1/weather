@@ -2,15 +2,7 @@
 {% block content %}
     <div class="row">
         <div class="col-4">
-            {% with messeges = get_flashed_messages() %}
-                {% if messeges %}
-                    <div class="alert alert-warning" role="alert">
-                        {% for messege in messeges %}
-                            {{ messege }}<br />
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
+            {% include('messages.html') %}
             <form action="{{ url_for('user.process_login') }}" method="POST">
                 {{ form.hidden_tag() }}
                 <div class="form-group">

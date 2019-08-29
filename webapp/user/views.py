@@ -4,13 +4,14 @@ from flask_login import login_user, logout_user, current_user, login_required # 
 from webapp.db import db
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import User
+from webapp.utils import get_redirect_target
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
 @blueprint.route("/login")
 def login():
     if current_user.is_authenticated: # если залогинен, то страница логина ненужна
-        return redirect(url_for('news.index')) # перенаправляем на главную
+        return redirect(get_redirect_target()) # перенаправляем на то откуда пришел
     title = 'Авторизация'
     login_form = LoginForm() # создали экземпляр нашего класса
     return render_template('user/login.html', page_title=title, form=login_form)
@@ -24,7 +25,7 @@ def process_login():
         if user and user.check_password(form.password.data): # если пользователь существует и проверка пароля прошла
             login_user(user, remember=form.remember_me.data) # логиним пользователя  запоминаем, remember - данные чекбокса с "запомнить меня"
             flash('Вы успешно вошли на сайт')
-            return redirect(url_for('news.index')) # редиректим на главную
+            return redirect(get_redirect_target()) # перенаправляем на то откуда пришел
 
     flash('Неправильные имя или пароль')
     return redirect(url_for('user.login'))
